@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz - Movie Recommender{% endblock %}
+
+{% block content %}
+<section class="min-h-screen bg-primary-bg py-12 relative overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 animated-gradient-bg opacity-20"></div>
+    <div class="absolute top-1/4 left-0 w-96 h-96 bg-accent-purple/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-accent-red/10 rounded-full blur-3xl"></div>
+
+    <div class="container mx-auto px-6 max-w-4xl relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-12 fade-in">
+            <div class="inline-flex items-center gap-2 px-4 py-2 glass-panel rounded-full mb-6">
+                <div class="w-2 h-2 bg-accent-purple rounded-full animate-pulse"></div>
+                <span class="text-sm font-accent text-gray-400">Psychological Assessment</span>
+            </div>
+            <h1 class="text-5xl lg:text-6xl font-display font-bold mb-4">
+                Discover Your
+                <span class="text-gradient">Perfect Movie</span>
+            </h1>
+            <p class="text-xl text-gray-300">Answer these questions to find movies that match your mood</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-12 glass-panel p-1 rounded-full">
+            <div id="progress-bar" class="h-3 progress-bar-fill rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+        </div>
+        <div class="text-center mb-12">
+            <span id="progress-text" class="text-sm font-accent text-gray-400">Question <span id="current-q">0</span> of <span id="total-q">{{ questions|length }}</span></span>
+        </div>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form" method="POST" action="/quiz-result" class="space-y-10">
+            {% for question in questions %}
+            <div class="quiz-question fade-in-scale" data-question="{{ loop.index }}" data-anim-delay="{{ loop.index0 }}">
+                <div class="glass-card p-8 hover:border-accent-purple/30 transition-all">
+                    <div class="flex items-start gap-4 mb-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-accent-purple to-accent-red flex items-center justify-center text-xl font-bold">
+                            {{ loop.index }}
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-display font-bold text-white flex-1 pt-2">
+                            {{ question.question }}
+                        </h3>
+                    </div>
+                    
+                    <div class="grid gap-4">
+                        {% for option in question.options %}
+                        <label class="quiz-option-card cursor-pointer" data-question="q{{ question.id }}">
+                            <input type="radio" name="q{{ question.id }}" value="{{ loop.index0 }}" required class="hidden quiz-radio">
+                            <div class="quiz-option-content">
+                                <div class="flex items-center gap-4">
+                                    <div class="quiz-option-radio"></div>
+                                    <span class="text-lg text-gray-200 flex-1">{{ option.text }}</span>
+                                    <div class="quiz-option-check">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <div class="text-center pt-8 fade-in" style="animation-delay: 0.5s">
+                <button type="submit" id="submit-btn" 
+                        class="cta-button-primary text-white relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                    <span class="relative z-10">Analyze My Emotions</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-accent-purple to-accent-red opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </button>
+                
+                <div id="loading" class="hidden mt-8">
+                    <div class="inline-flex items-center gap-4 glass-panel px-8 py-6 rounded-2xl">
+                        <div class="relative">
+                            <div class="w-12 h-12 rounded-full border-4 border-accent-purple/20"></div>
+                            <div class="absolute inset-0 w-12 h-12 rounded-full border-4 border-t-accent-purple animate-spin"></div>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-white font-semibold">Analyzing your emotions...</p>
+                            <p class="text-sm text-gray-400">Finding perfect matches</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="mt-6 text-sm text-gray-500">
+                    🔒 Your responses are processed locally and never stored
+                </p>
+            </div>
+        </form>
+
+        <script id="questions-data" type="application/json">{{ questions | tojson }}</script>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Apply animation delays without inline Jinja expressions in style attributes
+document.querySelectorAll('.quiz-question[data-anim-delay]').forEach(el => {
+    const step = Number(el.dataset.animDelay || 0);
+    el.style.animationDelay = `${step * 0.1}s`;
+});
+
+// Initialize quiz progress tracking
+const questions = JSON.parse(document.getElementById('questions-data').textContent);
+const totalQuestions = questions.length;
+let answeredCount = 0;
+
+// Update progress display
+document.getElementById('total-q').textContent = totalQuestions;
+
+// Track answered questions
+const answeredQuestions = new Set();
+
+// Add click handlers to quiz option cards
+document.querySelectorAll('.quiz-option-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const input = this.querySelector('input[type="radio"]');
+        const questionName = input.name;
+        
+        // Remove selected class from all options in this question
+        document.querySelectorAll(`input[name="${questionName}"]`).forEach(radio => {
+            radio.closest('.quiz-option-card').classList.remove('selected');
+        });
+        
+        // Add selected class to clicked option
+        this.classList.add('selected');
+        input.checked = true;
+        
+        // Track progress
+        if (!answeredQuestions.has(questionName)) {
+            answeredQuestions.add(questionName);
+            updateProgress();
+        }
+        
+        // Smooth scroll to next question
+        const currentQuestion = this.closest('.quiz-question');
+        const questionNumber = parseInt(currentQuestion.dataset.question);
+        if (questionNumber < totalQuestions) {
+            setTimeout(() => {
+                const nextQuestion = document.querySelector(`[data-question="${questionNumber + 1}"]`);
+                if (nextQuestion) {
+                    nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 300);
+        }
+    });
+});
+
+function updateProgress() {
+    answeredCount = answeredQuestions.size;
+    const percentage = (answeredCount / totalQuestions) * 100;
+    
+    document.getElementById('progress-bar').style.width = percentage + '%';
+    document.getElementById('current-q').textContent = answeredCount;
+    
+    // Enable submit button when all questions answered
+    const submitBtn = document.getElementById('submit-btn');
+    if (answeredCount === totalQuestions) {
+        submitBtn.classList.add('pulse-glow');
+    }
+}
+
+// Form submission
+document.getElementById('quiz-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    // Collect answers
+    const answers = {};
+    
+    for (const question of questions) {
+        const selected = document.querySelector(`input[name="q${question.id}"]:checked`);
+        if (selected) {
+            answers[question.id] = selected.value;
+        }
+    }
+    
+    // Validate all questions answered
+    if (Object.keys(answers).length < questions.length) {
+        if (window.movieRecUtils && window.movieRecUtils.showToast) {
+            window.movieRecUtils.showToast('Please answer all questions before submitting.', 'warning');
+        } else {
+            alert('Please answer all questions before submitting.');
+        }
+        return;
+    }
+    
+    // Show loading
+    const submitBtn = document.getElementById('submit-btn');
+    const loading = document.getElementById('loading');
+    submitBtn.disabled = true;
+    loading.classList.remove('hidden');
+    
+    // Create abort controller with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    
+    let didRedirect = false;
+    
+    try {
+        console.log('Submitting quiz answers:', answers);
+        
+        // Submit quiz
+        const response = await fetch('/api/submit-quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ answers }),
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        console.log('Response status:', response.status);
+        const result = await response.json();
+        console.log('Response data:', result);
+        
+        if (result.success) {
+            // Show success message
+            if (window.movieRecUtils && window.movieRecUtils.showToast) {
+                window.movieRecUtils.showToast('Analysis complete! Redirecting...', 'success');
+            }
+            
+            // Redirect to results page after short delay
+            didRedirect = true;
+            setTimeout(() => {
+                window.location.href = '/results';
+            }, 1000);
+        } else {
+            throw new Error(result.message || 'Error processing quiz');
+        }
+    } catch (error) {
+        clearTimeout(timeoutId);
+        console.error('Quiz submission error:', error);
+        
+        let errorMessage = 'An error occurred. Please try again.';
+        if (error.name === 'AbortError') {
+            errorMessage = 'Request timeout. Please check your connection and try again.';
+        } else if (error.message) {
+            errorMessage = error.message;
+        }
+        
+        if (window.movieRecUtils && window.movieRecUtils.showToast) {
+            window.movieRecUtils.showToast(errorMessage, 'error');
+        } else {
+            alert(errorMessage);
+        }
+    } finally {
+        // Always reset UI if we didn't redirect
+        if (!didRedirect) {
+            submitBtn.disabled = false;
+            loading.classList.add('hidden');
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,636 @@
+{
+    "happy": [
+      {
+        "title": "The Pursuit of Happyness",
+        "year": 2006,
+        "genre": "Drama",
+        "rating": 8.0
+      },
+      {
+        "title": "Forrest Gump",
+        "year": 1994,
+        "genre": "Drama, Romance",
+        "rating": 8.8
+      },
+      {
+        "title": "La La Land",
+        "year": 2016,
+        "genre": "Comedy, Drama, Music",
+        "rating": 8.0
+      },
+      {
+        "title": "The Intouchables",
+        "year": 2011,
+        "genre": "Biography, Comedy, Drama",
+        "rating": 8.5
+      },
+      {
+        "title": "Toy Story 3",
+        "year": 2010,
+        "genre": "Animation, Adventure, Comedy",
+        "rating": 8.3
+      },
+      {
+        "title": "The Grand Budapest Hotel",
+        "year": 2014,
+        "genre": "Adventure, Comedy, Drama",
+        "rating": 8.1
+      },
+      {
+        "title": "The Lego Movie",
+        "year": 2014,
+        "genre": "Animation, Action, Adventure",
+        "rating": 7.8
+      },
+      {
+        "title": "Crazy Rich Asians",
+        "year": 2018,
+        "genre": "Comedy, Drama, Romance",
+        "rating": 6.9
+      },
+      {
+        "title": "Little Miss Sunshine",
+        "year": 2006,
+        "genre": "Comedy, Drama",
+        "rating": 7.9
+      },
+      {
+        "title": "Juno",
+        "year": 2007,
+        "genre": "Comedy, Drama",
+        "rating": 7.5
+      },
+      {
+        "title": "The Secret Life of Walter Mitty",
+        "year": 2013,
+        "genre": "Adventure, Comedy, Drama",
+        "rating": 7.3
+      },
+      {
+        "title": "Mamma Mia!",
+        "year": 2008,
+        "genre": "Comedy, Musical, Romance",
+        "rating": 6.4
+      },
+      {
+        "title": "Paddington 2",
+        "year": 2017,
+        "genre": "Animation, Adventure, Comedy",
+        "rating": 7.8
+      },
+      {
+        "title": "Singin' in the Rain",
+        "year": 1952,
+        "genre": "Comedy, Musical, Romance",
+        "rating": 8.3
+      },
+      {
+        "title": "500 Days of Summer",
+        "year": 2009,
+        "genre": "Comedy, Drama, Romance",
+        "rating": 7.7
+      }
+    ],
+    "sad": [
+      {
+        "title": "The Fault in Our Stars",
+        "year": 2014,
+        "genre": "Drama, Romance",
+        "rating": 7.7
+      },
+      {
+        "title": "Schindler's List",
+        "year": 1993,
+        "genre": "Biography, Drama, History",
+        "rating": 9.0
+      },
+      {
+        "title": "A Walk to Remember",
+        "year": 2002,
+        "genre": "Drama, Romance",
+        "rating": 7.4
+      },
+      {
+        "title": "The Green Mile",
+        "year": 1999,
+        "genre": "Crime, Drama, Fantasy",
+        "rating": 8.6
+      },
+      {
+        "title": "Requiem for a Dream",
+        "year": 2000,
+        "genre": "Dram, Horror",
+        "rating": 8.3
+      },
+      {
+        "title": "Manchester by the Sea",
+        "year": 2016,
+        "genre": "Drama",
+        "rating": 7.8
+      },
+      {
+        "title": "My Sister's Keeper",
+        "year": 2009,
+        "genre": "Drama",
+        "rating": 7.4
+      },
+      {
+        "title": "Precious",
+        "year": 2009,
+        "genre": "Drama",
+        "rating": 7.3
+      },
+      {
+        "title": "The Boy in the Striped Pajamas",
+        "year": 2008,
+        "genre": "Drama, War",
+        "rating": 7.8
+      },
+      {
+        "title": "The Pianist",
+        "year": 2002,
+        "genre": "Biography, Drama, Music",
+        "rating": 8.5
+      },
+      {
+        "title": "Life Is Beautiful",
+        "year": 1997,
+        "genre": "Comedy, Drama, Romance",
+        "rating": 8.6
+      },
+      {
+        "title": "Hachi: A Dog's Tale",
+        "year": 2009,
+        "genre": "Drama, Family",
+        "rating": 8.1
+      },
+      {
+        "title": "Bridge to Terabithia",
+        "year": 2007,
+        "genre": "Adventure, Drama, Family",
+        "rating": 7.1
+      },
+      {
+        "title": "Boys Don't Cry",
+        "year": 1999,
+        "genre": "Biography, Crime, Drama",
+        "rating": 7.6
+      },
+      {
+        "title": "Eternal Sunshine of the Spotless Mind",
+        "year": 2004,
+        "genre": "Drama, Romance, Sci-Fi",
+        "rating": 8.3
+      }
+    ],
+    "angry": [
+      {
+        "title": "Fight Club",
+        "year": 1999,
+        "genre": "Drama",
+        "rating": 8.8
+      },
+      {
+        "title": "Gladiator",
+        "year": 2000,
+        "genre": "Action, Drama",
+        "rating": 8.5
+      },
+      {
+        "title": "The Dark Knight",
+        "year": 2008,
+        "genre": "Action, Crime, Drama",
+        "rating": 9.0
+      },
+      {
+        "title": "John Wick",
+        "year": 2014,
+        "genre": "Action, Crime, Thriller",
+        "rating": 7.4
+      },
+      {
+        "title": "The Revenant",
+        "year": 2015,
+        "genre": "Action, Adventure, Drama",
+        "rating": 8.0
+      },
+      {
+        "title": "Kill Bill: Vol. 1",
+        "year": 2003,
+        "genre": "Action, Crime, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Django Unchained",
+        "year": 2012,
+        "genre": "Drama, Western",
+        "rating": 8.4
+      },
+      {
+        "title": "Deadpool",
+        "year": 2016,
+        "genre": "Action, Adventure, Comedy",
+        "rating": 8.0
+      },
+      {
+        "title": "Mad Max: Fury Road",
+        "year": 2015,
+        "genre": "Action, Adventure, Sci-Fi",
+        "rating": 8.1
+      },
+      {
+        "title": "The Punisher",
+        "year": 2004,
+        "genre": "Action, Crime, Drama",
+        "rating": 6.4
+      },
+      {
+        "title": "Rambo: First Blood",
+        "year": 1982,
+        "genre": "Action, Drama, Thriller",
+        "rating": 7.7
+      },
+      {
+        "title": "No Country for Old Men",
+        "year": 2007,
+        "genre": "Crime, Drama, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Terminator 2: Judgment Day",
+        "year": 1991,
+        "genre": "Action, Sci-Fi",
+        "rating": 8.5
+      },
+      {
+        "title": "American History X",
+        "year": 1998,
+        "genre": "Drama",
+        "rating": 8.5
+      },
+      {
+        "title": "The Bourne Ultimatum",
+        "year": 2007,
+        "genre": "Action, Mystery, Thriller",
+        "rating": 8.0
+      }
+    ],
+    "surprise": [
+      {
+        "title": "Inception",
+        "year": 2010,
+        "genre": "Action, Adventure, Sci-Fi",
+        "rating": 8.8
+      },
+      {
+        "title": "Shutter Island",
+        "year": 2010,
+        "genre": "Mystery, Thriller",
+        "rating": 8.2
+      },
+      {
+        "title": "The Prestige",
+        "year": 2006,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 8.5
+      },
+      {
+        "title": "The Sixth Sense",
+        "year": 1999,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Gone Girl",
+        "year": 2014,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Prisoners",
+        "year": 2013,
+        "genre": "Crime, Drama, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "The Others",
+        "year": 2001,
+        "genre": "Horror, Mystery, Thriller",
+        "rating": 7.6
+      },
+      {
+        "title": "The Village",
+        "year": 2004,
+        "genre": "Mystery, Thriller",
+        "rating": 6.5
+      },
+      {
+        "title": "Memento",
+        "year": 2000,
+        "genre": "Mystery, Thriller",
+        "rating": 8.4
+      },
+      {
+        "title": "The Game",
+        "year": 1997,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 7.8
+      },
+      {
+        "title": "Donnie Darko",
+        "year": 2001,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 8.0
+      },
+      {
+        "title": "Interstellar",
+        "year": 2014,
+        "genre": "Adventure, Drama, Sci-Fi",
+        "rating": 8.6
+      },
+      {
+        "title": "Source Code",
+        "year": 2011,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 7.5
+      }
+    ],
+    "surprised": [
+      {
+        "title": "Inception",
+        "year": 2010,
+        "genre": "Action, Adventure, Sci-Fi",
+        "rating": 8.8
+      },
+      {
+        "title": "Shutter Island",
+        "year": 2010,
+        "genre": "Mystery, Thriller",
+        "rating": 8.2
+      },
+      {
+        "title": "The Prestige",
+        "year": 2006,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 8.5
+      },
+      {
+        "title": "The Sixth Sense",
+        "year": 1999,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Gone Girl",
+        "year": 2014,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "Prisoners",
+        "year": 2013,
+        "genre": "Crime, Drama, Thriller",
+        "rating": 8.1
+      },
+      {
+        "title": "The Others",
+        "year": 2001,
+        "genre": "Horror, Mystery, Thriller",
+        "rating": 7.6
+      },
+      {
+        "title": "The Village",
+        "year": 2004,
+        "genre": "Mistery, Thriller",
+        "rating": 6.5
+      },
+      {
+        "title": "Memento",
+        "year": 2000,
+        "genre": "Mystery, Thriller",
+        "rating": 8.4
+      },
+      {
+        "title": "The Game",
+        "year": 1997,
+        "genre": "Drama, Mystery, Thriller",
+        "rating": 7.8
+      },
+      {
+        "title": "The Invisible Man",
+        "year": 2020,
+        "genre": "Horror, Mystery, Sci-Fi",
+        "rating": 7.1
+      },
+      {
+        "title": "Donnie Darko",
+        "year": 2001,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 8.0
+      },
+      {
+        "title": "Shutter Island",
+        "year": 2010,
+        "genre": "Mystery, Thriller",
+        "rating": 8.2
+      },
+      {
+        "title": "Interstellar",
+        "year": 2014,
+        "genre": "Adventure, Drama, Sci-Fi",
+        "rating": 8.6
+      },
+      {
+        "title": "Source Code",
+        "year": 2011,
+        "genre": "Drama, Mystery, Sci-Fi",
+        "rating": 7.5
+      }
+    ],
+    "fear": [
+      {
+        "title": "The Conjuring",
+        "year": 2013,
+        "genre": "Horror, Mystery, Thriller",
+        "rating": 7.5
+      },
+      {
+        "title": "A Quiet Place",
+        "year": 2018,
+        "genre": "Drama, Horror, Sci-Fi",
+        "rating": 7.5
+      },
+      {
+        "title": "Get Out",
+        "year": 2017,
+        "genre": "Horror, Mystery, Thriller",
+        "rating": 7.7
+      },
+      {
+        "title": "The Shining",
+        "year": 1980,
+        "genre": "Drama, Horror",
+        "rating": 8.4
+      },
+      {
+        "title": "Hereditary",
+        "year": 2018,
+        "genre": "Drama, Horror, Mystery",
+        "rating": 7.3
+      },
+      {
+        "title": "It",
+        "year": 2017,
+        "genre": "Horror",
+        "rating": 7.3
+      },
+      {
+        "title": "The Exorcist",
+        "year": 1973,
+        "genre": "Horror",
+        "rating": 8.1
+      },
+      {
+        "title": "Paranormal Activity",
+        "year": 2007,
+        "genre": "Horror, Mystery",
+        "rating": 6.3
+      },
+      {
+        "title": "Insidious",
+        "year": 2010,
+        "genre": "Horror, Mystery, Thriller",
+        "rating": 6.8
+      },
+      {
+        "title": "The Ring",
+        "year": 2002,
+        "genre": "Horror, Mystery",
+        "rating": 7.1
+      }
+    ],
+    "neutral": [
+      {
+        "title": "The Grand Budapest Hotel",
+        "year": 2014,
+        "genre": "Adventure, Comedy, Drama",
+        "rating": 8.1
+      },
+      {
+        "title": "Her",
+        "year": 2013,
+        "genre": "Drama, Romance, Sci-Fi",
+        "rating": 8.0
+      },
+      {
+        "title": "Lost in Translation",
+        "year": 2003,
+        "genre": "Drama, Romance",
+        "rating": 7.7
+      },
+      {
+        "title": "The Secret Life of Walter Mitty",
+        "year": 2013,
+        "genre": "Adventure, Comedy, Drama",
+        "rating": 7.3
+      },
+      {
+        "title": "Amélie",
+        "year": 2001,
+        "genre": "Comedy, Romance",
+        "rating": 8.3
+      },
+      {
+        "title": "Garden State",
+        "year": 2004,
+        "genre": "Comedy, Drama, Romance",
+        "rating": 7.6
+      },
+      {
+        "title": "Moonrise Kingdom",
+        "year": 2012,
+        "genre": "Comedy, Drama, Romance",
+        "rating": 7.8
+      },
+      {
+        "title": "The Social Network",
+        "year": 2010,
+        "genre": "Biography, Drama",
+        "rating": 7.8
+      },
+      {
+        "title": "Before Sunrise",
+        "year": 1995,
+        "genre": "Drama, Romance",
+        "rating": 8.1
+      },
+      {
+        "title": "Midnight in Paris",
+        "year": 2011,
+        "genre": "Comedy, Fantasy, Romance",
+        "rating": 7.7
+      }
+    ],
+    "disgust": [
+      {
+        "title": "Requiem for a Dream",
+        "year": 2000,
+        "genre": "Drama",
+        "rating": 8.3
+      },
+      {
+        "title": "Black Swan",
+        "year": 2010,
+        "genre": "Drama, Thriller",
+        "rating": 8.0
+      },
+      {
+        "title": "Clockwork Orange",
+        "year": 1971,
+        "genre": "Crime, Drama, Sci-Fi",
+        "rating": 8.3
+      },
+      {
+        "title": "Oldboy",
+        "year": 2003,
+        "genre": "Action, Drama, Mystery",
+        "rating": 8.4
+      },
+      {
+        "title": "American Psycho",
+        "year": 2000,
+        "genre": "Crime, Drama, Horror",
+        "rating": 7.6
+      },
+      {
+        "title": "The Machinist",
+        "year": 2004,
+        "genre": "Drama, Thriller",
+        "rating": 7.7
+      },
+      {
+        "title": "Nightcrawler",
+        "year": 2014,
+        "genre": "Crime, Drama, Thriller",
+        "rating": 7.8
+      },
+      {
+        "title": "Prisoners",
+        "year": 2013,
+        "genre": "Crime, Drama, Mystery",
+        "rating": 8.1
+      },
+      {
+        "title": "Se7en",
+        "year": 1995,
+        "genre": "Crime, Drama, Mystery",
+        "rating": 8.6
+      },
+      {
+        "title": "Zodiac",
+        "year": 2007,
+        "genre": "Crime, Drama, Mystery",
+        "rating": 7.7
+      }
+    ]
+  }

@@ -1,0 +1,71 @@
+id,title,year,genre,overview,emotion_tags,rating,tmdb_id
+1,The Pursuit of Happyness,2006,Drama,A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.,happy,8.0,1402
+2,Forrest Gump,1994,"Drama, Romance",The presidencies of Kennedy and Johnson through the eyes of an Alabama man with an IQ of 75.,happy,8.8,13
+3,La La Land,2016,"Comedy, Drama, Music",A jazz pianist falls for an aspiring actress in Los Angeles.,happy,8.0,313369
+4,The Intouchables,2011,"Biography, Comedy, Drama",After he becomes a quadriplegic a wealthy man hires a caregiver from the projects.,happy,8.5,27405
+5,Toy Story 3,2010,"Animation, Adventure, Comedy",The toys are mistakenly delivered to a day-care center and must plan a great escape.,happy,8.3,10193
+6,Paddington 2,2017,"Animation, Adventure, Comedy",Paddington picks up a series of odd jobs to buy the perfect present for his Aunt Lucy's birthday.,happy,7.8,346364
+7,The Grand Budapest Hotel,2014,"Adventure, Comedy, Drama",A writer encounters the owner of an aging high-class hotel who tells of his early years.,happy,8.1,120467
+8,The Lego Movie,2014,"Animation, Action, Adventure",An ordinary LEGO construction worker is recruited to help stop an evil tyrant from gluing the universe together.,happy,7.8,137106
+9,Little Miss Sunshine,2006,"Comedy, Drama",A family determined to get their young daughter into the finals of a beauty pageant take a cross-country trip.,happy,7.9,773
+10,Up,2009,"Animation, Adventure, Comedy",An elderly widower travels to Paradise Falls in his house equipped with balloons.,happy,8.3,14160
+11,The Fault in Our Stars,2014,"Drama, Romance",Two teens who meet in a cancer support group fall in love and explore the meaning of life together.,sad,7.7,222935
+12,Schindler's List,1993,"Biography, Drama, History",The true story of how businessman Oskar Schindler saved over a thousand Jewish lives during the Holocaust.,sad,9.0,424
+13,A Walk to Remember,2002,"Drama, Romance",Two North Carolina teens from very different worlds fall in love.,sad,7.4,4282
+14,The Green Mile,1999,"Crime, Drama, Fantasy",The lives of guards on Death Row are affected by one of their charges: a black man accused of child murder.,sad,8.6,497
+15,Manchester by the Sea,2016,Drama,A depressed uncle is asked to take care of his teenage nephew after the boy's father dies.,sad,7.8,334521
+16,Hachi: A Dog's Tale,2009,"Drama, Family",A college professor bonds with an abandoned dog he takes into his home.,sad,8.1,20890
+17,The Boy in the Striped Pajamas,2008,"Drama, War",Through the innocent eyes of Bruno the story of an unlikely friendship between the son of a Nazi and a Jewish boy.,sad,7.8,4347
+18,Eternal Sunshine of the Spotless Mind,2004,"Drama, Romance, Sci-Fi",When their relationship turns sour a couple undergoes a procedure to have each other erased from their memories.,sad,8.3,38
+19,Life Is Beautiful,1997,"Comedy, Drama, Romance",A Jewish man uses his vivid imagination to protect his son from the horrors of a Nazi concentration camp.,sad,8.6,637
+20,Marley & Me,2008,"Comedy, Drama, Family",A family learns important life lessons from their adorable but naughty dog.,sad,7.0,2085
+21,Fight Club,1999,Drama,An insomniac office worker and a devil-may-care soap maker form an underground fight club.,angry,8.8,550
+22,Gladiator,2000,"Action, Drama",A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family.,angry,8.5,98
+23,The Dark Knight,2008,"Action, Crime, Drama",Batman must accept one of the greatest psychological tests to fight injustice and the diabolical Joker.,angry,9.0,155
+24,John Wick,2014,"Action, Crime, Thriller",An ex-hitman comes out of retirement to track down the gangsters that killed his dog.,angry,7.4,245891
+25,Mad Max: Fury Road,2015,"Action, Adventure, Sci-Fi",In a post-apocalyptic wasteland a woman rebels against a tyrannical ruler in search of her homeland.,angry,8.1,76341
+26,Kill Bill: Vol. 1,2003,"Action, Crime, Thriller",The Bride continues her quest of vengeance against her former boss and lover Bill.,angry,8.1,24
+27,Django Unchained,2012,"Drama, Western",A freed slave teams up with a bounty hunter to rescue his wife from a brutal plantation owner.,angry,8.4,68718
+28,The Revenant,2015,"Action, Adventure, Drama",A frontiersman on a fur trading expedition fights for survival after being mauled by a bear.,angry,8.0,281957
+29,Deadpool,2016,"Action, Adventure, Comedy",A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment.,angry,8.0,293660
+30,V for Vendetta,2005,"Action, Drama, Sci-Fi",In a future British dystopia a masked vigilante plots to overthrow the tyrannical government.,angry,8.2,752
+31,The Conjuring,2013,"Horror, Mystery, Thriller",Paranormal investigators work to help a family terrorized by a dark presence in their farmhouse.,fear,7.5,138843
+32,A Quiet Place,2018,"Drama, Horror, Sci-Fi",A family must live in silence while hiding from creatures that hunt by sound.,fear,7.5,447332
+33,Get Out,2017,"Horror, Mystery, Thriller",A young African American man visits his white girlfriend's parents for the weekend.,fear,7.7,419430
+34,The Shining,1980,"Drama, Horror",A family heads to an isolated hotel for the winter where a sinister presence influences the father.,fear,8.4,694
+35,Hereditary,2018,"Drama, Horror, Mystery",A grieving family is haunted by tragic and disturbing occurrences.,fear,7.3,493922
+36,It,2017,Horror,A group of bullied kids band together when a shape-shifting demon terrorizes their town.,fear,7.3,346364
+37,The Exorcist,1973,Horror,When a young girl is possessed by a demon two priests are called to perform an exorcism.,fear,8.1,9552
+38,The Ring,2002,"Horror, Mystery",A journalist investigates a mysterious videotape that seems to cause the death of anyone who watches it.,fear,7.1,8051
+39,Insidious,2010,"Horror, Mystery, Thriller",A family looks to prevent evil spirits from trapping their comatose child in a realm called The Further.,fear,6.8,56292
+40,Sinister,2012,"Horror, Mystery, Thriller",A true-crime writer finds a disturbing box of home movies that plunge his family into danger.,fear,6.8,82507
+41,Inception,2010,"Action, Adventure, Sci-Fi",A thief who steals corporate secrets through dream-sharing technology is given the inverse task.,surprise,8.8,27205
+42,Shutter Island,2010,"Mystery, Thriller",A U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane.,surprise,8.2,11324
+43,The Prestige,2006,"Drama, Mystery, Sci-Fi",Two stage magicians engage in competitive one-upmanship in an attempt to create the ultimate illusion.,surprise,8.5,1124
+44,The Sixth Sense,1999,"Drama, Mystery, Thriller",A boy who communicates with spirits seeks the help of a disheartened child psychologist.,surprise,8.1,745
+45,Gone Girl,2014,"Drama, Mystery, Thriller",With his wife's disappearance a husband must prove his innocence while navigating a media circus.,surprise,8.1,210577
+46,Prisoners,2013,"Crime, Drama, Thriller",When his daughter and her friend go missing a desperate father takes matters into his own hands.,surprise,8.1,127585
+47,The Others,2001,"Horror, Mystery, Thriller",A woman who lives in a darkened old house with her photosensitive children becomes convinced their home is haunted.,surprise,7.6,2567
+48,Memento,2000,"Mystery, Thriller",A man with short-term memory loss attempts to track down his wife's murderer.,surprise,8.4,77
+49,Now You See Me,2013,"Crime, Mystery, Thriller",An FBI agent and Interpol detective track an illusionist team who pull bank heists during their performances.,surprise,7.2,75656
+50,Interstellar,2014,"Adventure, Drama, Sci-Fi",A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.,surprise,8.6,157336
+51,The Grand Budapest Hotel,2014,"Adventure, Comedy, Drama",A concierge at a famous European hotel befriends a young employee.,neutral,8.1,120467
+52,Her,2013,"Drama, Romance, Sci-Fi",In a near future a lonely writer develops an unlikely relationship with an operating system.,neutral,8.0,152601
+53,Lost in Translation,2003,"Drama, Romance",A faded movie star and a neglected young woman form an unlikely bond in Tokyo.,neutral,7.7,153
+54,Amélie,2001,"Comedy, Romance",A shy waitress decides to change the lives of those around her for the better.,neutral,8.3,194
+55,Garden State,2004,"Comedy, Drama, Romance",A quietly troubled young man returns home for his mother's funeral.,neutral,7.6,13155
+56,Moonrise Kingdom,2012,"Comedy, Drama, Romance",A pair of young lovers flee their New England town sparking a frantic search.,neutral,7.8,83666
+57,Before Sunrise,1995,"Drama, Romance",A young man and woman meet on a train in Europe and wind up spending one evening together in Vienna.,neutral,8.1,425
+58,Midnight in Paris,2011,"Comedy, Fantasy, Romance",While on a trip to Paris with his fiancée a nostalgic screenwriter finds himself transported back to the 1920s.,neutral,7.7,76492
+59,The Social Network,2010,"Biography, Drama",The story of the founding of Facebook and the legal battles that followed.,neutral,7.8,37799
+60,Paterson,2016,Drama,A bus driver writes poetry in his spare time.,neutral,7.3,387592
+61,Requiem for a Dream,2000,Drama,The drug-induced utopias of four people spiral into devastating nightmares.,disgust,8.3,641
+62,Black Swan,2010,"Drama, Thriller",A committed dancer struggles to maintain her sanity after winning the lead role in Swan Lake.,disgust,8.0,10137
+63,A Clockwork Orange,1971,"Crime, Drama, Sci-Fi",In the future a sadistic gang leader is imprisoned and volunteers for a conduct-aversion experiment.,disgust,8.3,185
+64,Oldboy,2003,"Action, Drama, Mystery",After being kidnapped and imprisoned for fifteen years a man is released to find his captor.,disgust,8.4,670
+65,American Psycho,2000,"Crime, Drama, Horror",A wealthy New York City investment banker hides his alternate psychopathic ego.,disgust,7.6,1359
+66,Nightcrawler,2014,"Crime, Drama, Thriller",When Louis Bloom a con man desperate for work discovers the world of crime journalism.,disgust,7.8,242582
+67,Se7en,1995,"Crime, Drama, Mystery",Two detectives hunt a serial killer who uses the seven deadly sins as his motives.,disgust,8.6,807
+68,Zodiac,2007,"Crime, Drama, Mystery",Between 1968 and 1983 a San Francisco cartoonist becomes an amateur detective obsessed with tracking down the Zodiac Killer.,disgust,7.7,1949
+69,Gone Girl,2014,"Drama, Mystery, Thriller",A husband becomes the prime suspect in his wife's mysterious disappearance.,disgust,8.1,210577
+70,Prisoners,2013,"Crime, Drama, Mystery",A desperate father takes the investigation into his own hands when police fail to find his missing daughter.,disgust,8.1,127585

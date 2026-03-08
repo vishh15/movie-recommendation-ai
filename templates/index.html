@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Emotion-Powered Movie Discovery | MOVREC AI{% endblock %}
+
+{% block content %}
+<!-- Cinematic Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden animated-gradient-bg">
+    <!-- Background Glow Effects -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-96 h-96 bg-accent-purple/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent-red/20 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Left: Hero Content -->
+            <div class="text-left space-y-8 fade-in">
+                <!--<div class="inline-block">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur border border-white/10 text-sm font-accent text-gray-300">
+                        <span class="w-2 h-2 bg-accent-green rounded-full animate-pulse"></span>
+                        AI-Powered Entertainment Discovery
+                    </span>
+                </div>-->
+
+                <h1 class="text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-tight tracking-tight">
+                    Find the
+                    <span class="block text-gradient">Perfect Movie</span>
+                    for Your Mood
+                </h1>
+
+                <p class="text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+                    Our AI understands how you feel and recommends movies you'll love instantly. 
+                    <span class="text-accent-purple font-semibold">No endless scrolling.</span> 
+                    Just perfect matches.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-6 pt-4">
+                    <a href="/quiz" class="cta-button-primary text-white text-center transform hover:scale-105 transition-all">
+                        <span class="inline-flex items-center gap-3">
+                            <span>📝</span>
+                            <span>Take Mood Quiz</span>
+                        </span>
+                    </a>
+                    <a href="/camera" class="cta-button-secondary text-white text-center transform hover:scale-105 transition-all">
+                        <span class="inline-flex items-center gap-3">
+                            <span>📸</span>
+                            <span>Use Camera Scan</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="flex items-center gap-8 pt-8 border-t border-white/10">
+                    <div>
+                        <div class="text-3xl font-display font-bold text-white">7</div>
+                        <div class="text-sm text-gray-400 font-accent">Emotions Detected</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-display font-bold text-white">70+</div>
+                        <div class="text-sm text-gray-400 font-accent">Movies Curated</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-display font-bold text-white">AI</div>
+                        <div class="text-sm text-gray-400 font-accent">Deep Learning</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Floating Movie Cards -->
+            <div class="relative hidden lg:block h-[600px] fade-in-scale delay-200">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <!-- Card 1 -->
+                    <div class="floating-card absolute top-0 left-10 w-48 rounded-2xl overflow-hidden shadow-2xl border border-white/10 transform rotate-3">
+                        <img src="https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg" alt="Movie" class="w-full h-72 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                            <div class="text-xs font-bold">Forrest Gump</div>
+                            <div class="text-xs text-gray-400">⭐ 8.8</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="floating-card absolute top-32 right-0 w-56 rounded-2xl overflow-hidden shadow-2xl border border-white/10 transform -rotate-6">
+                        <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="Movie" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                            <div class="text-xs font-bold">The Dark Knight</div>
+                            <div class="text-xs text-gray-400">⭐ 9.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="floating-card absolute bottom-10 left-20 w-52 rounded-2xl overflow-hidden shadow-2xl border border-white/10 transform rotate-2">
+                        <img src="https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg" alt="Movie" class="w-full h-76 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+                            <div class="text-xs font-bold">Inception</div>
+                            <div class="text-xs text-gray-400">⭐ 8.8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div class="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+            <div class="w-1 h-2 bg-white/50 rounded-full"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Feature Section -->
+<section class="py-32 bg-primary-surface relative overflow-hidden">
+    <!-- Background gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-primary-bg via-primary-surface to-primary-bg opacity-50"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-20">
+            <h2 class="text-5xl lg:text-6xl font-display font-bold mb-6">
+                How <span class="text-gradient">MOVREC AI</span> Works
+            </h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Cutting-edge AI technology that understands your emotions and delivers perfect movie recommendations
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Feature 1: Emotion Detection -->
+            <div class="feature-card group">
+                <div class="feature-icon">
+                    🎭
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4 group-hover:text-accent-purple transition-colors">
+                    Emotion Detection
+                </h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    Real-time facial emotion analysis using PyTorch and EfficientNet-B0 deep learning model
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        7 emotions detected
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        OpenCV face detection
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        High accuracy AI
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 2: Smart Recommendations -->
+            <div class="feature-card group">
+                <div class="feature-icon">
+                    🤖
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4 group-hover:text-accent-red transition-colors">
+                    Smart Recommendations
+                </h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    Hybrid recommender combining TF-IDF vectorization with cosine similarity ranking
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        Content-based filtering
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        Personalized scoring
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        TMDB integration
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Feature 3: Mood Quiz -->
+            <div class="feature-card group">
+                <div class="feature-icon">
+                    📝
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4 group-hover:text-accent-purple transition-colors">
+                    Psychological Quiz
+                </h3>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    Quick emotional assessment quiz designed to understand your current mood state
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        5 targeted questions
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        Weighted scoring
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="text-accent-green">✓</span>
+                        Instant results
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="mt-20 text-center">
+            <div class="inline-flex items-center gap-6 px-8 py-4 glass-panel rounded-full">
+                <span class="text-gray-400 font-accent text-sm">Built with</span>
+                <div class="flex items-center gap-6 text-sm font-semibold">
+                    <span class="text-accent-purple">PyTorch</span>
+                    <span class="text-gray-600">•</span>
+                    <span class="text-accent-red">Flask</span>
+                    <span class="text-gray-600">•</span>
+                    <span class="text-accent-green">TailwindCSS</span>
+                    <span class="text-gray-600">•</span>
+                    <span class="text-accent-purple">TMDB API</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-32 bg-primary-bg relative overflow-hidden">
+    <div class="absolute inset-0 animated-gradient-bg opacity-30"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl mx-auto text-center glass-panel rounded-3xl p-12">
+            <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">
+                Ready to Discover Your
+                <span class="text-gradient">Perfect Movie?</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-10">
+                Let AI analyze your mood and find movies you'll absolutely love
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="/quiz" class="cta-button-primary text-white">
+                    Start Your Journey
+                </a>
+                <a href="/camera" class="cta-button-secondary text-white">
+                    Try Camera Detection
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if error %}
+<div class="fixed bottom-6 right-6 bg-red-600/90 backdrop-blur text-white px-6 py-4 rounded-xl shadow-2xl border border-red-500/50 z-50">
+    {{ error }}
+</div>
+{% endif %}
+{% endblock %}

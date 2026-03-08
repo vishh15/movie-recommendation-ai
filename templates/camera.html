@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block title %}Camera - Movie Recommender{% endblock %}
+
+{% block extra_head %}
+<style>
+.camera-frame {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.scanner-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.scanner-corners {
+    position: absolute;
+    inset: 2rem;
+}
+
+.scanner-corners .corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(139, 92, 246, 0.8);
+}
+
+.scanner-corners .top-left {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+}
+
+.scanner-corners .top-right {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 8px;
+}
+
+.scanner-corners .bottom-left {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+}
+
+.scanner-corners .bottom-right {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 8px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="min-h-screen bg-primary-bg py-12 relative overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 animated-gradient-bg opacity-20"></div>
+    <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-red/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-0 w-96 h-96 bg-accent-purple/10 rounded-full blur-3xl"></div>
+
+    <div class="container mx-auto px-6 max-w-5xl relative z-10">
+        <!-- Header -->
+        <div class="text-center mb-12 fade-in">
+            <div class="inline-flex items-center gap-2 px-4 py-2 glass-panel rounded-full mb-6">
+                <div class="w-2 h-2 bg-accent-red rounded-full animate-pulse"></div>
+                <span class="text-sm font-accent text-gray-400">Real-Time AI Analysis</span>
+            </div>
+            <h1 class="text-5xl lg:text-6xl font-display font-bold mb-4">
+                Camera <span class="text-gradient">Emotion Detection</span>
+            </h1>
+            <p class="text-xl text-gray-300">Let AI analyze your facial expression in real-time</p>
+        </div>
+
+        <!-- Camera Section -->
+        <div class="glass-card p-6 lg:p-10 fade-in-scale" style="animation-delay: 0.2s">
+            <!-- Video Preview with AI Scanner Frame -->
+            <div class="relative mb-8">
+                <div class="camera-frame">
+                    <video id="video" autoplay playsinline class="w-full rounded-xl bg-black" style="max-height: 600px;"></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+                    
+                    <!-- Scanner Overlay -->
+                    <div id="scanner-overlay" class="scanner-overlay hidden">
+                        <div class="scan-grid"></div>
+                        <div class="scan-line"></div>
+                        <div class="scanner-corners">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                    </div>
+
+                    <!-- Detection Processing Overlay -->
+                    <div id="detection-overlay" class="absolute inset-0 hidden items-center justify-center bg-black/90 backdrop-blur-sm rounded-xl">
+                        <div class="text-center">
+                            <div class="relative mb-6">
+                                <div class="w-20 h-20 rounded-full border-4 border-accent-purple/20 mx-auto"></div>
+                                <div class="absolute inset-0 w-20 h-20 rounded-full border-4 border-t-accent-purple mx-auto animate-spin"></div>
+                            </div>
+                            <p class="text-2xl text-white font-display font-bold mb-2">Analyzing Expression...</p>
+                            <p class="text-sm text-gray-400">Deep learning in progress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div id="status" class="text-center mb-8">
+                <div class="inline-flex items-center gap-3 glass-panel px-6 py-3 rounded-full">
+                    <div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+                    <span class="text-gray-300 font-medium" id="status-text">Click "Start Camera" to begin</span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="start-btn" onclick="startCamera()" 
+                        class="cta-button-primary text-white">
+                    <span>📹 Start Camera</span>
+                </button>
+                <button id="capture-btn" onclick="captureAndDetect()" disabled
+                        class="cta-button-secondary text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                    <span>🎯 Detect Emotion</span>
+                </button>
+                <button id="stop-btn" onclick="stopCamera()" disabled
+                        class="glass-panel px-8 py-4 rounded-xl text-white font-semibold hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span>⏹️ Stop Camera</span>
+                </button>
+            </div>
+
+            <!-- Detection Result -->
+            <div id="result" class="hidden mt-10">
+                <div class="glass-card p-8 text-center border-2 border-accent-green/50">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center gap-3 mb-2">
+                            <div class="w-3 h-3 bg-accent-green rounded-full animate-pulse"></div>
+                            <span class="text-sm font-accent text-gray-400 uppercase tracking-wider">Detection Complete</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold text-white mb-6">Detected Emotion</h3>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div id="emotion-badge-container" class="flex justify-center mb-4">
+                            <!-- Emotion badge will be inserted here -->
+                        </div>
+                        <div class="flex items-center justify-center gap-4">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-400 mb-1">Confidence</p>
+                                <p id="confidence-text" class="text-3xl font-bold text-white"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="/results" class="cta-button-primary text-white inline-block">
+                        View Movie Recommendations →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in" style="animation-delay: 0.4s">
+            <div class="glass-panel p-6 text-center">
+                <div class="text-4xl mb-3">💡</div>
+                <h4 class="font-semibold text-white mb-2">Good Lighting</h4>
+                <p class="text-sm text-gray-400">Ensure your face is well-lit</p>
+            </div>
+            <div class="glass-panel p-6 text-center">
+                <div class="text-4xl mb-3">👁️</div>
+                <h4 class="font-semibold text-white mb-2">Direct View</h4>
+                <p class="text-sm text-gray-400">Look directly at camera</p>
+            </div>
+            <div class="glass-panel p-6 text-center">
+                <div class="text-4xl mb-3">😊</div>
+                <h4 class="font-semibold text-white mb-2">Natural Expression</h4>
+                <p class="text-sm text-gray-400">Show your real emotion</p>
+            </div>
+            <div class="glass-panel p-6 text-center">
+                <div class="text-4xl mb-3">🎭</div>
+                <h4 class="font-semibold text-white mb-2">Full Face</h4>
+                <p class="text-sm text-gray-400">Keep face fully visible</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let stream = null;
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Emotion color mapping for badges
+const emotionColors = {
+    'happy': 'emotion-happy',
+    'sad': 'emotion-sad',
+    'angry': 'emotion-angry',
+    'fear': 'emotion-fear',
+    'neutral': 'emotion-neutral',
+    'surprise': 'emotion-surprise',
+    'disgust': 'emotion-disgust'
+};
+
+function updateStatus(message, type = 'default') {
+    const statusContainer = document.getElementById('status');
+    const statusText = document.getElementById('status-text');
+    const indicator = statusContainer.querySelector('.w-2');
+    
+    statusText.textContent = message;
+    
+    // Update indicator color
+    indicator.className = 'w-2 h-2 rounded-full';
+    if (type === 'success') {
+        indicator.classList.add('bg-accent-green', 'animate-pulse');
+    } else if (type === 'error') {
+        indicator.classList.add('bg-accent-red', 'animate-pulse');
+    } else if (type === 'active') {
+        indicator.classList.add('bg-accent-purple', 'animate-pulse');
+    } else {
+        indicator.classList.add('bg-gray-500');
+    }
+}
+
+async function startCamera() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                facingMode: 'user'
+            } 
+        });
+        
+        video.srcObject = stream;
+        
+        // Update buttons
+        document.getElementById('start-btn').disabled = true;
+        document.getElementById('capture-btn').disabled = false;
+        document.getElementById('stop-btn').disabled = false;
+        
+        // Show scanner overlay
+        document.getElementById('scanner-overlay').classList.remove('hidden');
+        
+        updateStatus('Camera active - Ready for emotion detection', 'active');
+        document.getElementById('result').classList.add('hidden');
+        
+        // Show toast notification
+        if (window.movieRecUtils && window.movieRecUtils.showToast) {
+            window.movieRecUtils.showToast('Camera started successfully!', 'success');
+        }
+    } catch (error) {
+        console.error('Error accessing camera:', error);
+        updateStatus('Error: Could not access camera. Please check permissions.', 'error');
+        
+        if (window.movieRecUtils && window.movieRecUtils.showToast) {
+            window.movieRecUtils.showToast('Camera access denied. Please enable camera permissions.', 'error');
+        }
+    }
+}
+
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        stream = null;
+    }
+    
+    // Update buttons
+    document.getElementById('start-btn').disabled = false;
+    document.getElementById('capture-btn').disabled = true;
+    document.getElementById('stop-btn').disabled = true;
+    
+    // Hide scanner overlay
+    document.getElementById('scanner-overlay').classList.add('hidden');
+    
+    updateStatus('Camera stopped', 'default');
+    
+    if (window.movieRecUtils && window.movieRecUtils.showToast) {
+        window.movieRecUtils.showToast('Camera stopped', 'info');
+    }
+}
+
+async function captureAndDetect() {
+    // Show detection overlay
+    document.getElementById('detection-overlay').classList.remove('hidden');
+    document.getElementById('capture-btn').disabled = true;
+    updateStatus('Processing facial recognition...', 'active');
+    
+    // Capture frame
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video, 0, 0);
+    
+    // Convert to base64
+    const imageData = canvas.toDataURL('image/jpeg', 0.8);
+    
+    try {
+        // Send to API
+        const response = await fetch('/api/detect-emotion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: imageData })
+        });
+        
+        const result = await response.json();
+        
+        // Hide detection overlay
+        document.getElementById('detection-overlay').classList.add('hidden');
+        
+        if (result.success) {
+            const emotion = result.emotion.toLowerCase();
+            const confidence = (result.confidence * 100).toFixed(1);
+            
+            // Create emotion badge
+            const emotionClass = emotionColors[emotion] || 'emotion-neutral';
+            const badgeHTML = `<span class="emotion-badge ${emotionClass} text-3xl">${result.emotion.toUpperCase()}</span>`;
+            document.getElementById('emotion-badge-container').innerHTML = badgeHTML;
+            
+            // Update confidence
+            document.getElementById('confidence-text').textContent = `${confidence}%`;
+            
+            // Show result card
+            document.getElementById('result').classList.remove('hidden');
+            
+            // Scroll to result
+            setTimeout(() => {
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+            
+            updateStatus('Emotion detected successfully!', 'success');
+            
+            if (window.movieRecUtils && window.movieRecUtils.showToast) {
+                window.movieRecUtils.showToast(`Detected: ${result.emotion} (${confidence}% confidence)`, 'success');
+            }
+        } else {
+            updateStatus(`Error: ${result.message}`, 'error');
+            document.getElementById('capture-btn').disabled = false;
+            
+            if (window.movieRecUtils && window.movieRecUtils.showToast) {
+                window.movieRecUtils.showToast(result.message || 'Detection failed', 'error');
+            }
+        }
+    } catch (error) {
+        console.error('Error detecting emotion:', error);
+        document.getElementById('detection-overlay').classList.add('hidden');
+        updateStatus('Error: Could not detect emotion. Please try again.', 'error');
+        document.getElementById('capture-btn').disabled = false;
+        
+        if (window.movieRecUtils && window.movieRecUtils.showToast) {
+            window.movieRecUtils.showToast('Network error. Please try again.', 'error');
+        }
+    }
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (stream) {
+        stopCamera();
+    }
+});
+</script>
+{% endblock %}

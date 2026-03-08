@@ -1,0 +1,418 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Movie Recommender{% endblock %}
+
+{% block content %}
+<section class="min-h-screen bg-primary-bg py-12 relative overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 animated-gradient-bg opacity-20"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-purple/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-red/10 rounded-full blur-3xl"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Header with Emotion Badge -->
+        <div class="text-center mb-16 fade-in">
+            <div class="inline-flex items-center gap-4 mb-8">
+                <div class="w-16 h-1 bg-gradient-to-r from-transparent via-accent-purple to-transparent"></div>
+                <span class="text-sm font-accent text-gray-400 uppercase tracking-wider">Analysis Complete</span>
+                <div class="w-16 h-1 bg-gradient-to-r from-transparent via-accent-purple to-transparent"></div>
+            </div>
+            
+            <h1 class="text-4xl lg:text-5xl font-display font-bold mb-8">
+                Your <span class="text-gradient">Perfect Matches</span>
+            </h1>
+            
+            <!-- Emotion Display -->
+            <div class="inline-flex items-center gap-6 glass-panel px-10 py-6 rounded-2xl">
+                <div class="text-left">
+                    <p class="text-sm text-gray-400 mb-1">Detected Emotion</p>
+                    <div class="flex items-center gap-3">
+                        {% if emotion %}
+                        <span class="emotion-badge emotion-{{ emotion.lower() }}">
+                            {{ emotion|upper }}
+                        </span>
+                        {% else %}
+                        <span class="emotion-badge emotion-neutral">UNKNOWN</span>
+                        {% endif %}
+                        {% if confidence %}
+                        <span class="text-2xl font-bold text-white">{{ (confidence * 100)|round(1) }}%</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movies Grid -->
+        {% if success and movies and movies|length > 0 %}
+        <div class="mb-8 flex justify-between items-center fade-in" style="animation-delay: 0.2s">
+            <h2 class="text-2xl font-display font-bold text-white">
+                Recommended for You
+                <span id="movies-visible-count" class="text-gray-500 text-lg ml-2">({{ movies|length }} movies)</span>
+            </h2>
+        </div>
+
+        <div class="glass-panel p-5 rounded-2xl mb-8 fade-in" style="animation-delay: 0.25s">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                <label class="filter-field">
+                    <span>Recommendation Count</span>
+                    <select id="filter-top-n" class="filter-input">
+                        <option value="dynamic">Dynamic</option>
+                        <option value="12">12</option>
+                        <option value="15">15</option>
+                        <option value="18">18</option>
+                        <option value="20">20</option>
+                    </select>
+                </label>
+
+                <label class="filter-field">
+                    <span>Min Rating</span>
+                    <select id="filter-rating" class="filter-input">
+                        <option value="0">All Ratings</option>
+                        <option value="6">6.0+</option>
+                        <option value="7">7.0+</option>
+                        <option value="8">8.0+</option>
+                        <option value="9">9.0+</option>
+                    </select>
+                </label>
+
+                <label class="filter-field">
+                    <span>Year From</span>
+                    <input id="filter-year-from" type="number" min="1900" max="2100" placeholder="e.g. 2000" class="filter-input">
+                </label>
+
+                <label class="filter-field">
+                    <span>Year To</span>
+                    <input id="filter-year-to" type="number" min="1900" max="2100" placeholder="e.g. 2026" class="filter-input">
+                </label>
+
+                <label class="filter-field">
+                    <span>Source</span>
+                    <select id="filter-source" class="filter-input">
+                        <option value="all">All Sources</option>
+                        <option value="local_dataset">Local Dataset</option>
+                        <option value="tmdb_discover">TMDB Discover</option>
+                    </select>
+                </label>
+
+                <label class="filter-field">
+                    <span>Genre</span>
+                    <input id="filter-genre" type="text" placeholder="e.g. drama" class="filter-input">
+                </label>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="reset-filters" type="button" class="px-4 py-2 text-sm rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors">
+                    Reset Filters
+                </button>
+            </div>
+        </div>
+
+        <div id="movies-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 fade-in" style="animation-delay: 0.3s">
+            {% for movie in movies %}
+            <div
+                class="movie-card-container fade-in-scale"
+                data-anim-delay="{{ loop.index0 }}"
+                data-rating="{{ movie.rating }}"
+                data-year="{{ movie.year }}"
+                data-source="{{ movie.source|default('local_dataset') }}"
+                data-genre="{{ movie.genre|lower }}"
+                data-title="{{ movie.title|lower }}"
+            >
+                <div class="movie-card group">
+                    <!-- Poster -->
+                    <div class="movie-card-poster">
+                        <img src="{{ movie.poster_url }}" 
+                             alt="{{ movie.title }}" 
+                             class="w-full h-full object-cover"
+                             onerror="this.src='https://via.placeholder.com/500x750/8b5cf6/ffffff?text={{ movie.title }}'"
+                             loading="lazy">
+                        
+                        <!-- Overlay on Hover -->
+                        <div class="movie-card-overlay">
+                            <div class="p-5 space-y-3">
+                                <!-- Title -->
+                                <h3 class="text-xl font-display font-bold text-white leading-tight">
+                                    {{ movie.title }}
+                                </h3>
+                                
+                                <!-- Meta Info -->
+                                <div class="flex items-center gap-3 text-sm">
+                                    <span class="text-white font-semibold">{{ movie.year }}</span>
+                                    <span class="text-gray-400">•</span>
+                                    <span class="flex items-center gap-1 text-yellow-400 font-semibold">
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                        {{ movie.rating }}/10
+                                    </span>
+                                </div>
+                                
+                                <!-- Description -->
+                                <p class="text-sm text-gray-300 leading-relaxed line-clamp-4">
+                                    {{ movie.overview }}
+                                </p>
+                                
+                                <!-- Genres -->
+                                <div class="flex flex-wrap gap-2">
+                                    {% for genre in movie.genre.split(',')[:3] %}
+                                    <span class="text-xs px-3 py-1.5 bg-accent-purple/20 border border-accent-purple/40 text-accent-purple font-medium rounded-full">
+                                        {{ genre.strip() }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rating Badge -->
+                        <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
+                            ⭐ {{ movie.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20 fade-in">
+            <div class="glass-card max-w-2xl mx-auto p-12">
+                <div class="text-7xl mb-8 opacity-50">🎬</div>
+                <h2 class="text-3xl font-display font-bold mb-4">No Movies Found</h2>
+                <p class="text-xl text-gray-400 mb-8">
+                    {{ message if message else 'Unable to find recommendations for this emotion.' }}
+                </p>
+                <a href="/quiz" class="cta-button-primary text-white">
+                    Try Again
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-20 fade-in" style="animation-delay: 0.5s">
+            <a href="/quiz" class="cta-button-primary text-white text-center">
+                <span>🔄 Take Quiz Again</span>
+            </a>
+            <a href="/camera" class="cta-button-secondary text-white text-center">
+                <span>📷 Try Camera Detection</span>
+            </a>
+            <a href="/" class="glass-panel px-8 py-4 rounded-xl text-white font-semibold hover:bg-white/10 transition-all text-center">
+                <span>🏠 Back to Home</span>
+            </a>
+        </div>
+
+        <!-- Fun Stats -->
+        {% if success and movies and movies|length > 0 %}
+        <div class="mt-20 grid md:grid-cols-3 gap-6 fade-in" style="animation-delay: 0.6s">
+            <div class="glass-panel p-6 text-center">
+                <div class="text-3xl font-bold text-accent-purple mb-2">{{ movies|length }}</div>
+                <div class="text-sm text-gray-400">Movies Curated</div>
+            </div>
+            <div class="glass-panel p-6 text-center">
+                <div class="text-3xl font-bold text-accent-red mb-2">
+                    {% set avg_rating = (movies|map(attribute='rating')|sum / movies|length) %}
+                    {{ avg_rating|round(1) }}⭐
+                </div>
+                <div class="text-sm text-gray-400">Average Rating</div>
+            </div>
+            <div class="glass-panel p-6 text-center">
+                <div class="text-3xl font-bold text-accent-green mb-2">
+                    {{ genre_count }}
+                </div>
+                <div class="text-sm text-gray-400">Genres Covered</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Apply staggered card animations without inline Jinja expressions in style attributes
+document.querySelectorAll('.movie-card-container[data-anim-delay]').forEach(el => {
+    const step = Number(el.dataset.animDelay || 0);
+    el.style.animationDelay = `${step * 0.05}s`;
+});
+
+const moviesGrid = document.getElementById('movies-grid');
+if (moviesGrid) {
+    const cards = Array.from(moviesGrid.querySelectorAll('.movie-card-container'));
+    const topNFilter = document.getElementById('filter-top-n');
+    const ratingFilter = document.getElementById('filter-rating');
+    const yearFromFilter = document.getElementById('filter-year-from');
+    const yearToFilter = document.getElementById('filter-year-to');
+    const sourceFilter = document.getElementById('filter-source');
+    const genreFilter = document.getElementById('filter-genre');
+    const resetButton = document.getElementById('reset-filters');
+    const countLabel = document.getElementById('movies-visible-count');
+    const params = new URLSearchParams(window.location.search);
+
+    if (topNFilter) {
+        const currentTopN = params.get('top_n');
+        topNFilter.value = currentTopN || 'dynamic';
+    }
+
+    const applyServerCount = () => {
+        if (!topNFilter) {
+            return;
+        }
+
+        const selected = topNFilter.value;
+        if (selected === 'dynamic') {
+            params.delete('top_n');
+        } else {
+            params.set('top_n', selected);
+        }
+
+        const nextQuery = params.toString();
+        window.location.href = nextQuery ? `/results?${nextQuery}` : '/results';
+    };
+
+    const applyFilters = () => {
+        const minRating = Number(ratingFilter?.value || 0);
+        const yearFrom = Number(yearFromFilter?.value || 0);
+        const yearTo = Number(yearToFilter?.value || 0);
+        const source = (sourceFilter?.value || 'all').toLowerCase();
+        const genreTerm = (genreFilter?.value || '').trim().toLowerCase();
+
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const cardRating = Number(card.dataset.rating || 0);
+            const cardYear = Number(card.dataset.year || 0);
+            const cardSource = (card.dataset.source || 'local_dataset').toLowerCase();
+            const cardGenre = (card.dataset.genre || '').toLowerCase();
+
+            const passRating = cardRating >= minRating;
+            const passYearFrom = !yearFrom || (cardYear && cardYear >= yearFrom);
+            const passYearTo = !yearTo || (cardYear && cardYear <= yearTo);
+            const passSource = source === 'all' || cardSource === source;
+            const passGenre = !genreTerm || cardGenre.includes(genreTerm);
+
+            const isVisible = passRating && passYearFrom && passYearTo && passSource && passGenre;
+            card.style.display = isVisible ? '' : 'none';
+            if (isVisible) {
+                visibleCount += 1;
+            }
+        });
+
+        if (countLabel) {
+            countLabel.textContent = `(${visibleCount} movies)`;
+        }
+    };
+
+    [ratingFilter, yearFromFilter, yearToFilter, sourceFilter, genreFilter].forEach(control => {
+        if (control) {
+            control.addEventListener('input', applyFilters);
+            control.addEventListener('change', applyFilters);
+        }
+    });
+
+    if (topNFilter) {
+        topNFilter.addEventListener('change', applyServerCount);
+    }
+
+    if (resetButton) {
+        resetButton.addEventListener('click', () => {
+            if (ratingFilter) ratingFilter.value = '0';
+            if (yearFromFilter) yearFromFilter.value = '';
+            if (yearToFilter) yearToFilter.value = '';
+            if (sourceFilter) sourceFilter.value = 'all';
+            if (genreFilter) genreFilter.value = '';
+            applyFilters();
+        });
+    }
+}
+</script>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+.line-clamp-3 {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-4 {
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.movie-card-container {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.movie-card-poster {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    border-radius: 0.75rem;
+}
+
+.movie-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+}
+
+.movie-card:hover .movie-card-overlay {
+    opacity: 1;
+}
+
+/* Enhanced movie card hover effects */
+.movie-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-field span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+}
+
+.filter-input {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.filter-input::placeholder {
+    color: #9ca3af;
+}
+
+.filter-input:focus {
+    outline: none;
+    border-color: rgba(139, 92, 246, 0.8);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
+}
+</style>
+{% endblock %}
